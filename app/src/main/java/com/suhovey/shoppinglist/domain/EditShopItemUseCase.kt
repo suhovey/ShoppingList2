@@ -1,8 +1,8 @@
 package com.suhovey.shoppinglist.domain
 
-class DeleteItemUseCase {
+class EditShopItemUseCase {
 
-    fun delete(id: Int): Boolean {
+    fun editShopItem(id: Int): Boolean {
         return false
     }
 
