@@ -14,23 +14,14 @@ class MainShopItemViewModel : ViewModel() {
     private val editShopItemUseCase = EditShopItemUseCase(repository)
     private val getShopItemUseCase = GetShopItemUseCase(repository)
 
-    val listShopItem = MutableLiveData<List<ShopItem>>()
-
-    fun getListShopItem() {
-        val list = getListShopItemUseCase.getListShopItems()
-        listShopItem.postValue(list)
-    }
+    val listShopItem = getListShopItemUseCase.getListShopItems()
 
     fun deleteShopItem(id: Int): Boolean {
-        if (!deleteShopItemUseCase.deleteShopItem(id)) return false
-        getListShopItem()
-        return true
+        return deleteShopItemUseCase.deleteShopItem(id)
     }
 
     fun changeEnableShopItem(id: Int): Boolean {
         val it = getShopItemUseCase.getShopItem(id) ?: return false
-        if (!editShopItemUseCase.editShopItem(ShopItem(it.name, it.count, !it.enabled))) return false
-        getListShopItem()
-        return true
+        return editShopItemUseCase.editShopItem(ShopItem(it.name, it.count, !it.enabled, it.id))
     }
 }

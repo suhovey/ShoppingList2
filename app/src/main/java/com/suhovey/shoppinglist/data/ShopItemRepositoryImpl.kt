@@ -1,5 +1,7 @@
 package com.suhovey.shoppinglist.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.suhovey.shoppinglist.domain.ShopItem
 import com.suhovey.shoppinglist.domain.ShopItemRepository
 
@@ -7,6 +9,7 @@ object ShopItemRepositoryImpl : ShopItemRepository {
 
     private val listShopItem = mutableListOf<ShopItem>()
     private var autoincrementId = 0
+    private val listShopItemLiveData = MutableLiveData<List<ShopItem>>()
 
     init {
         for (i in 0 until 10) {
@@ -23,6 +26,8 @@ object ShopItemRepositoryImpl : ShopItemRepository {
 
         listShopItem.add(it)
 
+        listUpdate()
+
         return it.id
     }
 
@@ -31,6 +36,8 @@ object ShopItemRepositoryImpl : ShopItemRepository {
         val it = listShopItem.find { it.id == id } ?: return false
 
         listShopItem.remove(it)
+
+        listUpdate()
 
         return true
     }
@@ -45,9 +52,9 @@ object ShopItemRepositoryImpl : ShopItemRepository {
 
     }
 
-    override fun getListShopItem(): List<ShopItem> {
+    override fun getListShopItem(): LiveData<List<ShopItem>> {
 
-        return listShopItem.toList()
+        return listShopItemLiveData
 
     }
 
@@ -55,5 +62,9 @@ object ShopItemRepositoryImpl : ShopItemRepository {
 
         return listShopItem.find { it.id == id } ?: null
 
+    }
+
+    private fun listUpdate() {
+        listShopItemLiveData.value = listShopItem.toList()
     }
 }
