@@ -1,9 +1,9 @@
 package com.suhovey.shoppinglist.domain
 
-class AddShopItemUseCase(private val shopItemsRepository: ShopItemsRepository) {
+class AddShopItemUseCase(private val shopItemRepository: ShopItemRepository) {
 
-    fun addShopItem(it: ShopItemData): Int {
-        shopItemsRepository.addShopItem(it)
+    fun addShopItem(it: ShopItem): Int {
+        shopItemRepository.addShopItem(it)
         return -1
     }
 

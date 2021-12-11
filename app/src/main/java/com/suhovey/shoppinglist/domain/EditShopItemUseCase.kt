@@ -1,9 +1,9 @@
 package com.suhovey.shoppinglist.domain
 
-class EditShopItemUseCase(private val shopItemsRepository: ShopItemsRepository) {
+class EditShopItemUseCase(private val shopItemRepository: ShopItemRepository) {
 
-    fun editShopItem(it: ShopItemData): Boolean {
-        return shopItemsRepository.editShopItem(it)
+    fun editShopItem(it: ShopItem): Boolean {
+        return shopItemRepository.editShopItem(it)
     }
 
 }

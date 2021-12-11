@@ -1,9 +1,9 @@
 package com.suhovey.shoppinglist.domain
 
-class GetShopItemUseCase(private val shopItemsRepository: ShopItemsRepository) {
+class GetShopItemUseCase(private val shopItemRepository: ShopItemRepository) {
 
-    fun getShopItem(id: Int): ShopItemData {
-        return shopItemsRepository.getShopItem(id)
+    fun getShopItem(id: Int): ShopItem? {
+        return shopItemRepository.getShopItem(id)
     }
 
 }
