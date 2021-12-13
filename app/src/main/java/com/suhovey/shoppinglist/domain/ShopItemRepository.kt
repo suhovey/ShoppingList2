@@ -1,5 +1,7 @@
 package com.suhovey.shoppinglist.domain
 
+import androidx.lifecycle.LiveData
+
 interface ShopItemRepository {
 
     fun addShopItem(it: ShopItem): Int
@@ -8,7 +10,7 @@ interface ShopItemRepository {
 
     fun editShopItem(it: ShopItem): Boolean
 
-    fun getListShopItem(): List<ShopItem>
+    fun getListShopItem(): LiveData<List<ShopItem>>
 
     fun getShopItem(id: Int): ShopItem?
 
