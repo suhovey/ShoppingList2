@@ -7,7 +7,13 @@ import com.suhovey.shoppinglist.domain.ShopItemRepository
 
 object ShopItemRepositoryImpl : ShopItemRepository {
 
-    private val listShopItem = mutableListOf<ShopItem>()
+    //private val listShopItem = mutableListOf<ShopItem>()
+    private val listShopItem = sortedSetOf<ShopItem>(object: Comparator<ShopItem> {
+        override fun compare(o1: ShopItem, o2: ShopItem): Int {
+            return o1.id.compareTo(o2.id)
+        }
+
+    })
     private var autoincrementId = 0
     private val listShopItemLiveData = MutableLiveData<List<ShopItem>>()
 
