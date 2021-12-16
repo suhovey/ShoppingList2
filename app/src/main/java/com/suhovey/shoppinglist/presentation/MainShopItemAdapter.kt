@@ -3,6 +3,7 @@ package com.suhovey.shoppinglist.presentation
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -13,8 +14,10 @@ import com.suhovey.shoppinglist.domain.ShopItem
 class MainShopItemAdapter : RecyclerView.Adapter<MainShopItemAdapter.ShopItemViewHolder>() {
 
     var count = 0
+
     var onShopItemLongClickListener: ((id: Int) -> Unit)? = null
     var onShopItemClickListener: ((item: ShopItem) -> Unit)? = null
+
     var listShopItem = listOf<ShopItem>()
         set(value) {
             field = value
@@ -57,7 +60,6 @@ class MainShopItemAdapter : RecyclerView.Adapter<MainShopItemAdapter.ShopItemVie
 
         holder.itemView.setOnClickListener {
             onShopItemClickListener?.invoke(item)
-            true
         }
 
     }
