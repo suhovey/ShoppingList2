@@ -1,6 +1,5 @@
 package com.suhovey.shoppinglist.presentation
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.suhovey.shoppinglist.data.ShopItemRepositoryImpl
 import com.suhovey.shoppinglist.domain.*
