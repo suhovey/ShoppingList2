@@ -1,18 +1,12 @@
 package com.suhovey.shoppinglist.presentation
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.suhovey.shoppinglist.R
 import com.suhovey.shoppinglist.domain.ShopItem
 
 class MainShopItemAdapter : ListAdapter<ShopItem, ShopItemViewHolder>(MainShopItemDiffCallback()) {
-
-    var count = 0
 
     var onShopItemLongClickListener: ((id: Int) -> Unit)? = null
     var onShopItemClickListener: ((item: ShopItem) -> Unit)? = null
@@ -21,8 +15,6 @@ class MainShopItemAdapter : ListAdapter<ShopItem, ShopItemViewHolder>(MainShopIt
         if (getItem(position).enabled) TYPE_SHOP_ITEM_IS_ENABLED else TYPE_SHOP_ITEM_IS_DISABLED
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
-
-        Log.d("ShopItemList", "onCreateViewHolder: ${++count}")
 
         val layout = when (viewType) {
             TYPE_SHOP_ITEM_IS_ENABLED -> R.layout.shop_item_enabled
