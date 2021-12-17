@@ -8,19 +8,19 @@ import kotlin.random.Random
 
 object ShopItemRepositoryImpl : ShopItemRepository {
 
-    //private val listShopItem = mutableListOf<ShopItem>()
-    private val listShopItem = sortedSetOf<ShopItem>(object: Comparator<ShopItem> {
+    // private val listShopItem = sortedSetOf(Comparator<ShopItem> { o1, o2 -> o1.id.compareTo(o2.id) })
+    private val listShopItem = sortedSetOf(object : Comparator<ShopItem> {
         override fun compare(o1: ShopItem, o2: ShopItem): Int {
             return o1.id.compareTo(o2.id)
         }
-
     })
+
     private var autoincrementId = 0
     private val listShopItemLiveData = MutableLiveData<List<ShopItem>>()
 
     init {
         for (i in 0 until 1000) {
-            val it = ShopItem("Name ${i+1}", (i+1).toDouble(), Random.nextBoolean())
+            val it = ShopItem("Name ${i + 1}", (i + 1).toDouble(), Random.nextBoolean())
             addShopItem(it)
         }
     }

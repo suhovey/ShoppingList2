@@ -1,5 +1,7 @@
 package com.suhovey.shoppinglist.domain
 
+// Определяем структуру элемента содержащего информацию о необходимом товаре, который нужно купить
+
 data class ShopItem(
     val name: String,
     val count: Double,
