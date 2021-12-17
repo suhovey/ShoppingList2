@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.suhovey.shoppinglist.R
 import com.suhovey.shoppinglist.domain.ShopItem
 
-class MainShopItemAdapter : ListAdapter<ShopItem, MainShopItemAdapter.ShopItemViewHolder>(MainShopItemDiffCallback()) {
+class MainShopItemAdapter : ListAdapter<ShopItem, ShopItemViewHolder>(MainShopItemDiffCallback()) {
 
     var count = 0
 
@@ -19,11 +19,6 @@ class MainShopItemAdapter : ListAdapter<ShopItem, MainShopItemAdapter.ShopItemVi
 
     override fun getItemViewType(position: Int) =
         if (getItem(position).enabled) TYPE_SHOP_ITEM_IS_ENABLED else TYPE_SHOP_ITEM_IS_DISABLED
-
-    class ShopItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvName = view.findViewById<TextView>(R.id.card_shop_item_name)
-        val tvCount = view.findViewById<TextView>(R.id.card_shop_item_count)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
 
