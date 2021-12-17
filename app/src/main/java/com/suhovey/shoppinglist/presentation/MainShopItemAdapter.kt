@@ -7,21 +7,25 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.suhovey.shoppinglist.R
 import com.suhovey.shoppinglist.domain.ShopItem
 
 class MainShopItemAdapter : RecyclerView.Adapter<MainShopItemAdapter.ShopItemViewHolder>() {
 
-    var count = 0
+    var countInCreateViewHolder = 0
+    var countInBindViewHolder = 0
 
     var onShopItemLongClickListener: ((id: Int) -> Unit)? = null
     var onShopItemClickListener: ((item: ShopItem) -> Unit)? = null
 
     var listShopItem = listOf<ShopItem>()
         set(value) {
+            val callbackDiff = MainShopItemDiffCallback(listShopItem, value)
+            val diffResult = DiffUtil.calculateDiff(callbackDiff)
+            diffResult.dispatchUpdatesTo(this)
             field = value
-            notifyDataSetChanged()
         }
 
     override fun getItemViewType(position: Int) =
@@ -34,7 +38,7 @@ class MainShopItemAdapter : RecyclerView.Adapter<MainShopItemAdapter.ShopItemVie
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
 
-        Log.d("ShopItemList", "onCreateViewHolder: ${++count}")
+        Log.d("ShopItemList", "onCreateViewHolder: ${++countInCreateViewHolder}")
 
         val layout = when (viewType) {
             TYPE_SHOP_ITEM_IS_ENABLED -> R.layout.shop_item_enabled
@@ -48,6 +52,9 @@ class MainShopItemAdapter : RecyclerView.Adapter<MainShopItemAdapter.ShopItemVie
     }
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
+
+        Log.d("ShopItemList", "onBindViewHolder: ${++countInBindViewHolder}")
+
         val item = listShopItem[position]
 
         holder.tvName.text = item.name
