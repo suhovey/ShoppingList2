@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         // Подписываемся на изменение списка
         viewModel.listShopItem.observe(this) {
-            shopItemAdapter.listShopItem = it
+            shopItemAdapter.submitList(it)
         }
     }
 
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 // получаем ID элемента по которому прошло событие
-                val id = shopItemAdapter.listShopItem[viewHolder.adapterPosition].id
+                val id = shopItemAdapter.currentList[viewHolder.adapterPosition].id
 
                 // удаляем элемент из массива
                 viewModel.deleteShopItem(id)
