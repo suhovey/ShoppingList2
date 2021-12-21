@@ -1,40 +1,20 @@
 package com.suhovey.shoppinglist.presentation
 
-import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import com.suhovey.shoppinglist.R
 import com.suhovey.shoppinglist.domain.ShopItem
 
-class MainShopItemAdapter : RecyclerView.Adapter<MainShopItemAdapter.ShopItemViewHolder>() {
-
-    var count = 0
+class MainShopItemAdapter : ListAdapter<ShopItem, ShopItemViewHolder>(MainShopItemDiffCallback()) {
 
     var onShopItemLongClickListener: ((id: Int) -> Unit)? = null
     var onShopItemClickListener: ((item: ShopItem) -> Unit)? = null
 
-    var listShopItem = listOf<ShopItem>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
     override fun getItemViewType(position: Int) =
-        if (listShopItem[position].enabled) TYPE_SHOP_ITEM_IS_ENABLED else TYPE_SHOP_ITEM_IS_DISABLED
-
-    class ShopItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvName = view.findViewById<TextView>(R.id.card_shop_item_name)
-        val tvCount = view.findViewById<TextView>(R.id.card_shop_item_count)
-    }
+        if (getItem(position).enabled) TYPE_SHOP_ITEM_IS_ENABLED else TYPE_SHOP_ITEM_IS_DISABLED
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
-
-        Log.d("ShopItemList", "onCreateViewHolder: ${++count}")
 
         val layout = when (viewType) {
             TYPE_SHOP_ITEM_IS_ENABLED -> R.layout.shop_item_enabled
@@ -48,7 +28,7 @@ class MainShopItemAdapter : RecyclerView.Adapter<MainShopItemAdapter.ShopItemVie
     }
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
-        val item = listShopItem[position]
+        val item = getItem(position)
 
         holder.tvName.text = item.name
         holder.tvCount.text = item.count.toString()
@@ -62,10 +42,6 @@ class MainShopItemAdapter : RecyclerView.Adapter<MainShopItemAdapter.ShopItemVie
             onShopItemClickListener?.invoke(item)
         }
 
-    }
-
-    override fun getItemCount(): Int {
-        return listShopItem.size
     }
 
     companion object {
